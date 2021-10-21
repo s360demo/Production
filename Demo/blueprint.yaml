@@ -1,37 +1,51 @@
 name: demo
-version: 2
+version: 3
 formatVersion: 1
-inputs: {}
+inputs:
+  MachineName:
+    type: string
+    title: Name for the VM
+    description: Enter Name for VM
+  EnvType:
+    type: string
+    title: Environment
+    default: Prod
+    enum:
+      - Prod
+      - Test
+  selectFlavour:
+    type: string
+    title: Flavor
+    default: Small
+    enum:
+      - Small
+      - Large
+      - Medium
+      - Extra Large
 resources:
-  Cloud_Machine_2:
+  Cloud_Machine_1:
     type: Cloud.Machine
     metadata:
       layoutPosition:
         - 0
         - 1
     properties:
-      image: Win2k22
-      flavor: Medium
+      image: '${input.EnvType == "Prod" ? "Win2k22" : "EC2"}'
+      flavor: '${input.selectFlavour}'
+      newName: '${input.MachineName}'
+      constraints:
+        - tag: '${input.EnvType}'
       networks:
         - network: '${resource.Cloud_Network_1.id}'
-  Cloud_Machine_1:
-    type: Cloud.Machine
-    dependsOn:
-      - Cloud_Machine_2
-    metadata:
-      layoutPosition:
-        - 1
-        - 1
-    properties:
-      image: Win2k22
-      flavor: Small
-      networks:
-        - network: '${resource.Cloud_Network_1.id}'
+      storage:
+        constraints: []
   Cloud_Network_1:
     type: Cloud.Network
     metadata:
       layoutPosition:
-        - 2
+        - 1
         - 0
     properties:
       networkType: existing
+      constraints:
+        - tag: '${input.EnvType}'
