@@ -1,5 +1,5 @@
 name: demo
-version: 1
+version: 2
 formatVersion: 1
 inputs: {}
 resources:
@@ -11,7 +11,7 @@ resources:
         - 1
     properties:
       image: Win2k22
-      flavor: Small
+      flavor: Medium
       networks:
         - network: '${resource.Cloud_Network_1.id}'
   Cloud_Machine_1:
