@@ -22,7 +22,7 @@ resources:
         - 1
     properties:
       image: Win2k22
-      flavor: Medium
+      flavor: Small
       networks:
         - network: '${resource.Cloud_Network_1.id}'
   Cloud_Network_1:
