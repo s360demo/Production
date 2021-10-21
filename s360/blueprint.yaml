@@ -21,7 +21,6 @@ inputs:
       - Small
       - Large
       - Medium
-      - Extra Large
 resources:
   Cloud_Machine_1:
     type: Cloud.Machine
